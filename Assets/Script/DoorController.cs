@@ -7,7 +7,7 @@ public class DoorController : MonoBehaviour
     public float closedHeight = 1.5f;
     public float doorSpeed = 5f;
 
-    private bool isOpen = true;
+    public bool isOpen = true;
     private Vector3 targetPosition;
 
     void Start()

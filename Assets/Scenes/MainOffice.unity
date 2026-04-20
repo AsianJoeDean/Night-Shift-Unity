@@ -152,7 +152,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAI
   targetDoor: {fileID: 114734090}
+  doorScript: {fileID: 114734086}
   creepSpeed: 1
+  attackDistance: 1.5
+  waitTimeAtDoor: 3
 --- !u!65 &27213704
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -393,6 +396,7 @@ MonoBehaviour:
   openHeight: 4.5
   closedHeight: 1.5
   doorSpeed: 5
+  isOpen: 1
 --- !u!65 &114734087
 BoxCollider:
   m_ObjectHideFlags: 0
