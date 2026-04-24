@@ -62,7 +62,7 @@ public class EnemyAI : MonoBehaviour
         transform.position = startPosition; 
         isWaiting = false; 
     }
-}*/
+}
 
 
 public class EnemyAI : MonoBehaviour
@@ -109,3 +109,51 @@ public class EnemyAI : MonoBehaviour
         // Add your jumpscare effects here (UI flash, sound, animation, etc.)
     }
 }
+*/
+
+
+
+public class EnemyAI : MonoBehaviour
+{
+    [Header("Hunting Settings")]
+    public Transform targetDoor;     // Where the enemy moves
+    public Transform player;         // Player reference
+    public float creepSpeed = 1.0f;  // Movement speed
+    public float jumpscareDistance = 0.5f;
+
+    private bool hasTriggeredJumpscare = false;
+
+    void Update()
+    {
+        if (targetDoor == null) return;
+
+        // --- FIX: Lock Y-axis so enemy stays on the ground ---
+        Vector3 targetPos = new Vector3(
+            targetDoor.position.x,
+            transform.position.y,     // keep enemy's height
+            targetDoor.position.z
+        );
+
+        // Move toward the door on the ground plane
+        float step = creepSpeed * Time.deltaTime;
+        transform.position = Vector3.MoveTowards(transform.position, targetPos, step);
+
+        // Check jumpscare distance
+        if (!hasTriggeredJumpscare && player != null)
+        {
+            float distance = Vector3.Distance(transform.position, player.position);
+
+            if (distance <= jumpscareDistance)
+            {
+                TriggerJumpscare();
+            }
+        }
+    }
+
+    void TriggerJumpscare()
+    {
+        hasTriggeredJumpscare = true;
+        Debug.Log("Jumpscare triggered!");
+    }
+}
+
