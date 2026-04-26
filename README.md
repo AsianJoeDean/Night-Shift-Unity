@@ -1,7 +1,4 @@
-⛄ Nightshift
 Nightshift is a tense, FNAF-inspired survival horror game built in Unity. Trapped in a pitch-black office, you must manage your limited power supply, monitor security feeds, and utilize blast doors to survive until 6 AM against anomalous, pathfinding snowmen.
-
-(Tip: Drop a GIF or screenshot of your glowing desk and monitor here!)
 
 🔦 Gameplay Overview
 You are confined to a security desk with limited visibility. The facility is completely dark, forcing you to rely on a battery-draining flashlight and a localized security monitor to track enemy movements. If the snowmen breach your office, you lose. Survive the shift, manage your power, and don't let them in.
