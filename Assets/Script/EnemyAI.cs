@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections; 
-/*
+
 public class EnemyAI : MonoBehaviour
 {
     [Header("Hunting Settings")]
@@ -9,43 +9,50 @@ public class EnemyAI : MonoBehaviour
     public float creepSpeed = 1.0f; 
     
     [Header("Attack Settings")]
-    public float attackDistance = 2.0f; // Slightly increased so the cube doesn't clip the wall
+    public float attackDistance = 2.0f; 
     public float waitTimeAtDoor = 3.0f; 
+
+    [Header("Game Over System")]
+    public GameOverManager gameManager; 
     
     private Vector3 startPosition; 
     private bool isWaiting = false; 
+    private bool hasTriggeredJumpscare = false;
 
     void Start()
     {
+        // Memorize exactly where it spawned so it can teleport back here later
         startPosition = transform.position;
     }
 
     void Update()
     {
-        if (targetDoor == null || isWaiting) return;
+        // Stop moving if the game is over, or if we are waiting at a door
+        if (targetDoor == null || isWaiting || hasTriggeredJumpscare) return;
 
-        // THE FIX: Create "flat" versions of the positions that lock the Y-axis to 0
+        // Lock Y-axis to 0 so we measure true floor distance (fixes the "ghost" bug)
         Vector3 enemyFlatPos = new Vector3(transform.position.x, 0, transform.position.z);
         Vector3 doorFlatPos = new Vector3(targetDoor.position.x, 0, targetDoor.position.z);
 
-        // Now we measure the distance using the flat floor coordinates
         float distanceToDoor = Vector3.Distance(enemyFlatPos, doorFlatPos);
 
+        // Did we reach the door?
         if (distanceToDoor <= attackDistance)
         {
             if (doorScript.isOpen)
             {
-                Debug.Log("GAME OVER! You got jump-scared!");
-                isWaiting = true; 
+                // Door is open! You lose.
+                TriggerJumpscare();
             }
             else
             {
+                // Door is closed! Wait, then leave.
                 StartCoroutine(WaitAndLeave());
             }
         }
         else
         {
-            // Keep walking
+            // Keep walking (keeping feet firmly on the floor!)
             Vector3 groundTarget = new Vector3(targetDoor.position.x, transform.position.y, targetDoor.position.z);
             transform.position = Vector3.MoveTowards(transform.position, groundTarget, creepSpeed * Time.deltaTime);
         }
@@ -62,98 +69,16 @@ public class EnemyAI : MonoBehaviour
         transform.position = startPosition; 
         isWaiting = false; 
     }
-}
-
-
-public class EnemyAI : MonoBehaviour
-{
-    [Header("Hunting Settings")]
-    public Transform targetDoor;
-    public Transform player;
-    public float creepSpeed = 1.0f;
-    public float jumpscareDistance = 0.5f;
-
-    private bool hasTriggeredJumpscare = false;
-
-    // Reference to your GameManager
-    public GameManager gameManager;
-
-    void Update()
-    {
-        // Prevent jumpscares before game starts or after game ends
-        if (gameManager == null || !gameManager.gameStarted || gameManager.gameEnded)
-            return;
-
-        if (targetDoor == null) return;
-
-        float step = creepSpeed * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, targetDoor.position, step);
-
-        if (!hasTriggeredJumpscare && player != null)
-        {
-            float distance = Vector3.Distance(transform.position, player.position);
-
-            if (distance <= jumpscareDistance)
-            {
-                TriggerJumpscare();
-            }
-        }
-    }
-
-    void TriggerJumpscare()
-    {
-        hasTriggeredJumpscare = true;
-
-        Debug.Log("Jumpscare triggered!");
-
-        // Add your jumpscare effects here (UI flash, sound, animation, etc.)
-    }
-}
-*/
-
-
-
-public class EnemyAI : MonoBehaviour
-{
-    [Header("Hunting Settings")]
-    public Transform targetDoor;     // Where the enemy moves
-    public Transform player;         // Player reference
-    public float creepSpeed = 1.0f;  // Movement speed
-    public float jumpscareDistance = 0.5f;
-
-    private bool hasTriggeredJumpscare = false;
-
-    void Update()
-    {
-        if (targetDoor == null) return;
-
-        // --- FIX: Lock Y-axis so enemy stays on the ground ---
-        Vector3 targetPos = new Vector3(
-            targetDoor.position.x,
-            transform.position.y,     // keep enemy's height
-            targetDoor.position.z
-        );
-
-        // Move toward the door on the ground plane
-        float step = creepSpeed * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, targetPos, step);
-
-        // Check jumpscare distance
-        if (!hasTriggeredJumpscare && player != null)
-        {
-            float distance = Vector3.Distance(transform.position, player.position);
-
-            if (distance <= jumpscareDistance)
-            {
-                TriggerJumpscare();
-            }
-        }
-    }
 
     void TriggerJumpscare()
     {
         hasTriggeredJumpscare = true;
         Debug.Log("Jumpscare triggered!");
+        
+        // Turn on the scary UI screen if it is plugged in!
+        if (gameManager != null)
+        {
+            gameManager.TriggerJumpscareUI(); 
+        }
     }
 }
-
