@@ -41,7 +41,7 @@ Post-Processing (Global Volumes/Bloom)
 🚀 How to Play (Developer Setup)
 If you want to clone this repository and run the project in the Unity Editor:
 
-Clone the repo: git clone https://github.com/YourUsername/Nightshift.git
+Clone the repo: git clone https://github.com/AsianJoeDean/Night-Shift-Unity.git
 
 Open the project folder using Unity Hub. (Ensure you are using a compatible Unity version).
 
