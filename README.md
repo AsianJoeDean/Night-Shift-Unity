@@ -1,50 +1,43 @@
-Nightshift is a tense, FNAF-inspired survival horror game built in Unity. Trapped in a pitch-black office, you must manage your limited power supply, monitor security feeds, and utilize blast doors to survive until 6 AM against anomalous, pathfinding snowmen.
+# Nightshift
+**A survival horror experience developed for CSI 4380 (Winter 2026).**
 
-🔦 Gameplay Overview
-You are confined to a security desk with limited visibility. The facility is completely dark, forcing you to rely on a battery-draining flashlight and a localized security monitor to track enemy movements. If the snowmen breach your office, you lose. Survive the shift, manage your power, and don't let them in.
+### 🎮 [Play the WebGL Build on itch.io](INSERT_LINK_HERE)
 
-⚙️ Key Features
-Advanced AI Pathfinding: Enemies utilize Unity's NavMesh system to dynamically track the player through a custom-built hallway layout.
+---
 
-Diegetic UI & Interaction: Seamlessly switch between security feeds using physical in-game buttons. Camera labels update dynamically on a World Space Canvas attached to a glowing CRT monitor.
+## The Premise
+In *Nightshift*, you take on the role of a security guard working a lonely desk in a pitch-black facility. [cite_start]Inspired by the tension of late-night shifts in college residence halls, the game tasks you with surviving until the shift timer runs out. [cite: 98-100, 112]
 
-Resource Management System: A custom Game Manager handles power drain logic and a real-time shift clock.
+But you aren't alone. [cite_start]Anomalous snowmen are navigating the dark hallways, and they are heading straight for your office. [cite: 101, 107]
 
-Atmospheric URP Lighting: Built using the Universal Render Pipeline (URP). Features pitch-black ambient lighting, real-time localized point lights, custom emissive materials, and Post-Processing Bloom for neon arcade buttons.
+---
 
-Audio Engineering: Features spatial audio, mechanical interaction sounds (doors, flashlight clicks), and dynamic UI audio feedback.
+## Core Mechanics
+* **Resource Management:** You have a limited battery supply. Every time you use your flashlight or close the blast doors, you drain your power. [cite_start]If you hit 0%, you are left in the total dark. [cite: 108-110]
+* [cite_start]**Surveillance:** Use the CRT monitor at your desk to toggle between security cameras and track the snowmen as they move toward your position. [cite: 106, 114]
+* [cite_start]**Interactive Environment:** The game uses a raycast system, allowing you to interact with physical buttons on your desk to control the facility's security systems. [cite: 105-106, 128-129]
 
-🎮 Controls
-This game utilizes the modern Unity Input System.
+---
 
-Mouse Look: Look around the office.
+## Controls
+* [cite_start]**Mouse:** Look around the office. [cite: 184]
+* [cite_start]**Left Click (LMB):** Interact with buttons (Doors, Camera Switch). [cite: 128, 183]
+* [cite_start]**Right Click (RMB):** Toggle Flashlight. [cite: 173]
 
-Left Click (LMB): Interact with buttons (Toggle Doors, Switch Camera Feeds).
+---
 
-Right Click (RMB): Toggle Flashlight.
+## Technical Details
+* [cite_start]**Unity Version:** 2022.3 (LTS) [cite: 119]
+* [cite_start]**Platform:** WebGL [cite: 120]
+* [cite_start]**Implementation:** The game uses custom C# scripts for enemy logic, utilizing `Vector3` coordinate math to handle movement and proximity checks. [cite: 126, 150]
+* [cite_start]**Optimized Lighting:** We used a point-light "hack" for the emissive buttons to maintain a high frame rate while keeping the atmosphere pitch black. [cite: 133-134]
 
-🛠️ Technical Stack
-Engine: Unity 3D (URP)
+---
 
-Language: C#
+## Development Team
+* **Joe Dean**
+* **Michael Berceli** 
 
-Key Packages:
+*Developed as a term project at Oakland University.*
 
-Input System
-
-AI Navigation (NavMesh)
-
-TextMeshPro
-
-Post-Processing (Global Volumes/Bloom)
-
-🚀 How to Play (Developer Setup)
-If you want to clone this repository and run the project in the Unity Editor:
-
-Clone the repo: git clone https://github.com/AsianJoeDean/Night-Shift-Unity.git
-
-Open the project folder using Unity Hub. (Ensure you are using a compatible Unity version).
-
-Navigate to Assets/Scenes and open the Main Scene.
-
-Press Play in the editor.
+***
